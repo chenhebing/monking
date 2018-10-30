@@ -1,6 +1,6 @@
 # middleware
 
-monking 的设计理念是一切皆为中间件，与 koa2 的中间件稍有区别，monking 的中间件是以 monking 为参数，返回 koa2 中间件的函数，接下来先看个例子：
+monking 的设计理念是一切皆为中间件，与 koa2 的中间件稍有区别，monking 的中间件是以 monking 为参数，返回 koa2 中间件的函数，接下来先看个例子：
 
 ```js
 import path from 'path';
@@ -15,7 +15,7 @@ export default (monking) => {
 ```
 monking 继承自 koa2，并且在其上面挂载了 config，我们可以直接使用这些对象，最后 return 真正的 koa2 middleware 即可。我们假定 return 之前的代码为预备程序，那么相当于将框架的启动服务拆分到了各个 monking 中间件来管理，解耦了各个模块的依赖，又通过 monking 将各个模块连接起来，方便于管理。
 
-除了上面例子中直接 return 一个 koa2 的中间件外，我们也设计了可以 return 包含 koa2 中间件的数组，这样就可以将相关联的中间件放在一起管理。例如：
+除了上面例子中直接 return 一个 koa2 的中间件外，我们也设计了可以 return 包含 koa2 中间件的数组，这样就可以将相关联的中间件放在一起管理。例如：
 
 ```js
 import bodyParser from 'koa-bodyparser';
@@ -38,7 +38,7 @@ monking 内置了一些中间件，使用者不用关心其配置。
 
 ##### logger
 
-通过 [log4js](https://github.com/log4js-node/log4js-node) 实现，在 [config](./config/md) 中对 log4js 进行配置，默认的配置是开发环境日志会打到终端，线上环境打到对应的文件中，使用 pm2 来启动和管理项目。
+通过 [log4js](https://github.com/log4js-node/log4js-node) 实现，在 [config](./config/md) 中对 log4js 进行配置，默认的配置是开发环境日志会打到终端，线上环境打到对应的文件中，使用 pm2 来启动和管理项目。
 
 ##### static
 
@@ -70,7 +70,7 @@ monking 提供了一些可选的 middleware，使用者需要在 config 中的 m
 
 ##### mongodb
 
-使用 [mongoose](http://mongoosejs.com/) 实现 server 端数据持久化功能。我们提供的该中间件，会将 model 做依赖注入，但是考虑到 mongoose 需要提起定义 schema 和 生成单例的 model，于是我们约定，index.js 根据schema 生成 model，生成的 model 会挂载在 monking.model 上面，model.js 来做增删改查的操作。
+使用 [mongoose](http://mongoosejs.com/) 实现 server 端数据持久化功能。我们提供的该中间件，会将 model 做依赖注入，但是考虑到 mongoose 需要提起定义 schema 和 生成单例的 model，于是我们约定，index.js 根据schema 生成 model，生成的 model 会挂载在 monking.model 上面，model.js 来做增删改查的操作。
 
 ```js
 // server/model/user/index.js
@@ -84,7 +84,7 @@ export default ({createSchema, createModel, Schema}) => {
     return createModel('user', schema);
 };
 ```
-这里的 createSchema 和 createModel 只是对 new mongoose.Schema 和 mongoose.model 进行了封装，Schema 为 mongoose.Schema 用于创建 Schema 特有的数据类型。
+这里的 createSchema 和 createModel 只是对 new mongoose.Schema 和 mongoose.model 进行了封装，Schema 为 mongoose.Schema 用于创建 Schema 特有的数据类型。
 
 ```js
 // server/model/user/model.js
@@ -102,19 +102,19 @@ export default class UserModel {
 };
 
 ```
-monking 将 context、monking 和logger 做了依赖注入，mongodb 中间件将 userModel 做了依赖注入，依赖注入规则，具体请参考 [service](./service.md)。
+monking 将 context、monking 和logger 做了依赖注入，mongodb 中间件将 userModel 做了依赖注入，依赖注入规则，具体请参考 [service](./service.md)。
 
 在 [config](./config.md) 中需对 mongodb 进行配置，并且可以设置 defaultSchema，createSchema 时会合并 defaultSchema。
 
 ##### session
 
-用于管理session，基于 [koa-session](https://github.com/koajs/session) 实现，需要在 config 中对 session 做必要的配置。
+用于管理session，基于 [koa-session](https://github.com/koajs/session) 实现，需要在 config 中对 session 做必要的配置。
 
 ##### csrf
 
 CSRF（Cross-site request forgery，跨站请求伪造）会对网站发起恶意伪造的请求，严重影响网站的安全。
 
-该中间件基于 [Koa CSRF](https://github.com/koajs/csrf) 实现，用于防范 CSRF，需要在 config 中做必要的配置。
+该中间件基于 [Koa CSRF](https://github.com/koajs/csrf) 实现，用于防范 CSRF，需要在 config 中做必要的配置。
 
 ##### xst
 

@@ -40,9 +40,8 @@ export default class Reading {
 ```
 
 #### aopInject
-
-修饰依赖注入的类方法
 
+修饰依赖注入的类方法
 
 ```js
 // server/aop/try.catch.js
