@@ -1,0 +1,75 @@
+{
+    "name": "monking",
+    "version": "1.0.0",
+    "description": "Monkey King",
+    "scripts": {
+        "dev": "nodemon --trace-deprecation examples/index",
+        "prepare": "rm -rf lib && babel src --out-dir lib"
+    },
+    "dependencies": {
+        "@babel/cli": "^7.1.2",
+        "@babel/core": "^7.1.2",
+        "@babel/plugin-proposal-class-properties": "^7.1.0",
+        "@babel/plugin-proposal-decorators": "^7.1.2",
+        "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+        "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+        "@babel/plugin-transform-runtime": "^7.1.0",
+        "@babel/polyfill": "^7.0.0",
+        "@babel/preset-env": "^7.1.0",
+        "@babel/register": "^7.0.0",
+        "chokidar": "^2.0.3",
+        "escape-html": "^1.0.3",
+        "extend2": "^1.0.0",
+        "glob": "^7.1.2",
+        "injecting": "^2.6.0",
+        "koa": "^2.5.0",
+        "koa-bodyparser": "^4.2.0",
+        "koa-compose": "^4.0.0",
+        "koa-logger": "^3.2.0",
+        "koa-static-cache": "^5.1.2",
+        "log4js": "^3.0.6",
+        "path-to-regexp": "^2.2.0",
+        "pm2": "^3.0.3",
+        "semver": "^5.5.0",
+        "string-to-stream": "^1.1.1",
+        "typeis": "^1.1.2"
+    },
+    "devDependencies": {
+        "eslint": "^5.6.1",
+        "eslint-config-mpfe": "^1.1.0",
+        "eslint-config-standard": "^12.0.0",
+        "eslint-plugin-import": "^2.13.0",
+        "eslint-plugin-node": "^7.0.1",
+        "eslint-plugin-standard": "^3.1.0",
+        "nodemon": "^1.18.5"
+    },
+    "engines": {
+        "node": ">= 8.10.0"
+    },
+    "main": "lib/index.js",
+    "repository": "https://github.com/chenhebing/monking.git",
+    "author": "chenhebing",
+    "license": "MIT",
+    "nodemonConfig": {
+        "verbose": false,
+        "restartable": "rs",
+        "ignore": [
+            ".git/",
+            "node_modules/"
+        ],
+        "execMap": {
+            "js": "node --harmony"
+        },
+        "watch": [
+            "src",
+            "examples/config",
+            "examples/server/model/**/index.js",
+            "examples/index.js"
+        ],
+        "legacyWatch": true,
+        "env": {
+            "NODE_ENV": "development"
+        },
+        "ext": "*"
+    }
+}

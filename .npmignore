@@ -1,0 +1,14 @@
+.DS_Store
+.idea
+
+.eslintrc
+.eslintignore
+.editorconfig
+package-lock.json
+yarn.lock
+
+node_modules/
+static/
+src/
+examples/
+doc/
