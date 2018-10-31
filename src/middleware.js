@@ -4,7 +4,7 @@ import koaCompose from 'koa-compose';
 
 import { importFile } from './util';
 
-export default monking => {
+export default async monking => {
     const coreMiddlewarePath = path.resolve(__dirname, './middleware');
     const userMiddlewarePath = path.resolve(monking.config.path.middlewares);
     const files = [];
@@ -23,10 +23,17 @@ export default monking => {
             file = importFile(middlewareFile);
         }
         if (!file) {
-            console.error(`load ${middlewareFile} middleware faild, please check the name.`);
+            monking.appLogger.error(`load ${middlewareFile} middleware faild, please check the name.`);
             return;
         }
         files.push(file);
     });
-    return koaCompose(Array.prototype.concat.apply([], files.map(file => file(monking))));
+    const composeFile = await Promise.all(files.map(async file => {
+        try {
+            return await file(monking);
+        } catch (err) {
+            monking.appLogger.error('async load middleware fail: ', err);
+        }
+    }));
+    return koaCompose(Array.prototype.concat.apply([], composeFile));
 };
