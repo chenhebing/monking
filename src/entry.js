@@ -14,12 +14,12 @@ Object.keys(engines).forEach(engine => {
 const app = new Monking();
 
 process.on('uncaughtException', err => {
-    app.appLogger.error('检测到未捕获的异常', err);
+    console.error('检测到未捕获的异常', err);
 });
 
 // unhandledRejection
 process.on('unhandledRejection', err => {
-    app.appLogger.error(err);
+    console.error('检测到未捕获的reject', err);
 });
 
 app.listen(app.config.port);
