@@ -12,7 +12,7 @@
 $ # 强烈建议使用 yarn 安装依赖
 $ yarn add monking
 ```
-Node.js >= 8.10.0
+Node.js >= 8.9.0
 
 ### Dependencies
 
