@@ -1,6 +1,6 @@
 {
     "name": "monking",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Monkey King",
     "scripts": {
         "dev": "nodemon --trace-deprecation examples/index",
