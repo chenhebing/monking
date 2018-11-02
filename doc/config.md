@@ -2,7 +2,9 @@
 
 monking config 是为解决多环境问题而存在的配置文件，这里设计了三种层面的配置文件。
 
-monking 已经包含了一些框架必须的配置，通过修改各个环境的配置文件，可以覆盖默认配置。具体请参考 [config](../src/config.js)
+monking 已经包含了一些框架必须的配置，通过修改各个环境的配置文件，可以覆盖默认配置。具体请参考 [config](../src/config.js)。
+
+除了之外，monkig-react-render 还提供了一些config，可以参考 [monking-reactrender](https://github.com/chenhebing/monking-react-render)。
 
 ### 目录结构
 

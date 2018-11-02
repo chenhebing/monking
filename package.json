@@ -1,6 +1,6 @@
 {
     "name": "monking",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Monkey King",
     "scripts": {
         "dev": "nodemon --trace-deprecation examples/index",
@@ -44,7 +44,7 @@
         "nodemon": "^1.18.5"
     },
     "engines": {
-        "node": ">= 8.10.0"
+        "node": ">= 8.9.0"
     },
     "main": "lib/index.js",
     "repository": "https://github.com/chenhebing/monking.git",

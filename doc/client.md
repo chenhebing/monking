@@ -45,7 +45,6 @@ client 端最重要核心的部分是 page 目录，我们约定，如果page为
 // home/index.js
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { className } from './index.css;
 
 export default class Home extends Component {
@@ -76,7 +75,6 @@ export default class Home extends Component {
 // spa/index.js
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, StaticRouter } from 'react-router-dom';
 
@@ -115,7 +113,7 @@ export default App;
 
 #### HMR
 
-monking 中实现了服务端的局部热更新；monking-react-render 实现了客户端热更新，极大的提高了开发效率。大多数情况对开发人员来说都是无感知的，但是由于 redux 维护的 state 不会被 react-hmre 保留，所以对于使用 redux 的应用，生成 reducer 的需要手动热更新 reducer的 state 变化。
+monking 中实现了服务端的局部热更新；monking-react-render 实现了客户端热更新，极大的提高了开发效率。大多数情况对开发人员来说都是无感知的，但是由于 redux 维护的 state 不会被 react-hot-loader 保留，所以对于使用 redux 的应用，生成 reducer 的需要手动热更新 reducer的 state 变化。
 
 ```js
 // lib/index.js
