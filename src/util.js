@@ -1,5 +1,8 @@
 import glob from 'glob';
 import path from 'path';
+import moment from 'moment';
+
+const getTimestamp = () => `[${moment().format()}]`;
 
 const getCamelCaseFileName = (cwd, filename) => {
     const normalCwd = path.normalize(cwd);
@@ -23,7 +26,7 @@ const importFile = (filenameUnNormal, cache = true) => {
             mod = mod.default;
         }
     } catch (err) {
-        console.error(`load file error about [${filename}], detail error message: ${err}`);
+        console.error(`${getTimestamp()} load file error about [${filename}], detail error message: ${err}`);
     }
     return mod;
 };
@@ -41,5 +44,6 @@ const importFiles = (dir, target = '*') => {
 export {
     getCamelCaseFileName,
     importFile,
-    importFiles
+    importFiles,
+    getTimestamp
 };

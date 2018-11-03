@@ -15,15 +15,7 @@ const log4jsFileConfig = {
 
 const defaultPath = {
     root        : cwd,
-    public      : path.join(cwd, 'static'),
-    client      : path.join(cwd, 'client'),
-    lib         : path.join(cwd, 'lib'),
-    pages       : path.join(cwd, 'client/page'),
-    components  : path.join(cwd, 'client/component'),
-    assets      : path.join(cwd, 'client/asset'),
-    styles      : path.join(cwd, 'client/style'),
     server      : path.join(cwd, 'server'),
-    templates   : path.join(cwd, 'server/template'),
     services    : path.join(cwd, 'server/service'),
     middlewares : path.join(cwd, 'server/middleware'),
     controllers : path.join(cwd, 'server/controller'),
@@ -31,23 +23,14 @@ const defaultPath = {
     aop         : path.join(cwd, 'server/aop')
 };
 
-const alias = {
-    '@page': defaultPath.pages,
-    '@component': defaultPath.components,
-    '@style': defaultPath.styles,
-    '@asset': defaultPath.assets,
-    '@lib': defaultPath.lib
-};
-
 const defaults = {
     env,
     isProd,
     port: 8080,
-    template: 'layout.html',
-    ssrRender: true,
     middlewares: [],
     path: defaultPath,
-    alias,
+    onlyServer: true,           // 只有服务端接口
+    pluginConfig: false,        // monking plugin config, type: array
     log4js: {
         appenders: {
             console: {
@@ -104,12 +87,10 @@ const defaults = {
             enable: true,
             value: 'SAMEORIGIN'
         }
-    },
-    mongodb: {
     }
 };
 
-const getConfig = (...files) => {
+const getUserConfig = (...files) => {
     const result = [];
     files.forEach(file => {
         const filePath = path.join(configPath, `${file}.js`);
@@ -120,4 +101,12 @@ const getConfig = (...files) => {
     return result;
 };
 
-export default extend(true, {}, defaults, ...getConfig('default', env, 'local'));
+const userConfig = extend(true, {}, ...getUserConfig('default', env, 'local'));
+
+let pluginConfig = {};
+
+if (userConfig.pluginConfig && userConfig.pluginConfig.length > 0) {
+    pluginConfig = userConfig.pluginConfig.reduce((result, item) => extend(true, result, importFile(item)), {});
+}
+
+export default extend(true, defaults, pluginConfig, userConfig);

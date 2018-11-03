@@ -2,6 +2,7 @@ import semver from 'semver';
 
 import Monking from './monking';
 import { engines } from '../package';
+import { getTimestamp } from './util';
 
 Object.keys(engines).forEach(engine => {
     const current = process.versions[engine];
@@ -14,12 +15,12 @@ Object.keys(engines).forEach(engine => {
 const app = new Monking();
 
 process.on('uncaughtException', err => {
-    console.error('检测到未捕获的异常', err);
+    console.error(`${getTimestamp()} 检测到未捕获的异常`, err);
 });
 
 // unhandledRejection
 process.on('unhandledRejection', err => {
-    console.error('检测到未捕获的reject', err);
+    console.error(`${getTimestamp()} 检测到未捕获的reject`, err);
 });
 
 app.listen(app.config.port);
