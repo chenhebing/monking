@@ -26,7 +26,7 @@ export default class Home {
 };
 ```
 
-monking 和 monking-react-render 集成了 Get，Post，Put、Delete、view、aop 等修饰器，用来修饰类方法，方便解耦 controller。
+monking 集成了 Get，Post，Put、Delete、aop 等修饰器，用来修饰类方法，方便解耦 controller。
 
 * Get、Post、Put、Delete
 

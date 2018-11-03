@@ -20,7 +20,7 @@ monking 只是一个服务端的框架，如果需要使用前端渲染，请将
 
 ### Document
 
- [文档地址](https://github.com/chenhebing/monking/blob/master/doc/index.md)
+[文档地址](https://github.com/chenhebing/monking/blob/master/docs/index.md)
 
  ### Thanks
 
