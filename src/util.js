@@ -26,7 +26,7 @@ const importFile = (filenameUnNormal, cache = true) => {
             mod = mod.default;
         }
     } catch (err) {
-        console.error(`${getTimestamp()} load file error about [${filename}], detail error message: ${err}`);
+        console.error(`${getTimestamp()} load file error about [${filename}], detail error message: `, err);
     }
     return mod;
 };
