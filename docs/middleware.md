@@ -68,44 +68,6 @@ monking 内置了一些中间件，使用者不用关心其配置。
 
 monking 提供了一些可选的 middleware，使用者需要在 config 中的 middleware 中配置，配置的顺序即为执行的顺序。
 
-##### mongodb
-
-使用 [mongoose](http://mongoosejs.com/) 实现 server 端数据持久化功能。我们提供的该中间件，会将 model 做依赖注入，但是考虑到 mongoose 需要提起定义 schema 和 生成单例的 model，于是我们约定，index.js 根据schema 生成 model，生成的 model 会挂载在 monking.model 上面，model.js 来做增删改查的操作。
-
-```js
-// server/model/user/index.js
-
-export default ({createSchema, createModel, Schema}) => {
-    const schema = createSchema({
-        name: String,
-        age: String
-    });
-
-    return createModel('user', schema);
-};
-```
-这里的 createSchema 和 createModel 只是对 new mongoose.Schema 和 mongoose.model 进行了封装，Schema 为 mongoose.Schema 用于创建 Schema 特有的数据类型。
-
-```js
-// server/model/user/model.js
-
-export default class UserModel {
-    constructor (context, monking, logger) {
-        this.context = context;
-        this.userModel = monking.model.user;
-        this.logger = logger;
-    }
-    async getUserById (id) {
-        const user = await this.userModel.findById(id).exec();
-        return user;
-    }
-};
-
-```
-monking 将 context、monking 和logger 做了依赖注入，mongodb 中间件将 userModel 做了依赖注入，依赖注入规则，具体请参考 [service](./service.md)。
-
-在 [config](./config.md) 中需对 mongodb 进行配置，并且可以设置 defaultSchema，createSchema 时会合并 defaultSchema。
-
 ##### session
 
 用于管理session，基于 [koa-session](https://github.com/koajs/session) 实现，需要在 config 中对 session 做必要的配置。

@@ -14,13 +14,17 @@ $ yarn add monking
 ```
 Node.js >= 8.9.0
 
-### Dependencies
-
-monking 只是一个服务端的框架，如果需要使用前端渲染，请将 [monking-react-render](https://github.com/chenhebing/monking-react-render) 安装到项目中。
-
 ### Document
 
 [文档地址](https://github.com/chenhebing/monking/blob/master/docs/index.md)
+
+### Plugins
+
+提供了如下的扩展作为 monking 的插件使用：
+
+- [monking-react-render](https://github.com/chenhebing/monking-react-render)：基于 react 提供 view 层的能力。
+
+- [monking-mongodb](https://github.com/chenhebing/monking-mongodb)：基于 mongodb 提供 model 层的能力。
 
  ### Thanks
 
