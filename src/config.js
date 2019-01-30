@@ -5,7 +5,7 @@ import { importFile } from './util';
 
 const cwd = process.cwd();
 const env = process.env.NODE_ENV || 'production';
-const isProd = env === 'production';
+const isProd = env !== 'development';
 const configPath = path.resolve('config');
 
 const log4jsFileConfig = {

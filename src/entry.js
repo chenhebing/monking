@@ -23,4 +23,6 @@ process.on('unhandledRejection', err => {
     console.error(`${getTimestamp()} 检测到未捕获的reject`, err);
 });
 
-app.listen(app.config.port);
+app.listen(app.config.port, () => {
+    app.appLogger.info(`Server is running at http://localhost:${app.config.port}`);
+});
