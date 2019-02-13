@@ -1,14 +1,6 @@
 export default monking => async (ctx, next) => {
-    let router = {};
-    const matched = monking.routers.some(item => {
-        if (item.method.toUpperCase() === ctx.method.toUpperCase() &&
-            item.regexp.test(ctx.path)) {
-            router = item;
-            return true;
-        }
-        return false;
-    });
-    if (!matched) {
+    const router = monking.routers.find(item => item.method.toUpperCase() === ctx.method.toUpperCase() && item.regexp.test(ctx.path));
+    if (!router) {
         monking.appLogger.error(`not matched '${ctx.path}' router`);
         await next();
         return;
