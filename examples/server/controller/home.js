@@ -1,4 +1,4 @@
-import { Get, aopInject } from '../../../src';
+import { Get, aopInject, Post } from '../../../src';
 
 export default class Home {
     @Get('/test')
@@ -7,5 +7,10 @@ export default class Home {
         test.getName('test');
         context.body = 1234;
         return 'testaop';
+    }
+    @Post('/api/test')
+    async apiTest (body, logger, context) {
+        logger.info(body);
+        context.body = body;
     }
 }

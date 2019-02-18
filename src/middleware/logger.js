@@ -5,7 +5,7 @@ export default monking => {
     log4js.configure(monking.config.log4js);
     monking.logger = log4js.getLogger('context');
     monking.appLogger = log4js.getLogger('app');
-    return koaLogger((str, args) => {
+    const loggerMiddleware = koaLogger((str, args) => {
         const out = monking.config.isProd ? args.slice(1).join(' ') : str;
         if (args[3] && args[3] > 400) {
             monking.appLogger.error(out);
@@ -13,4 +13,11 @@ export default monking => {
             monking.appLogger.info(out);
         }
     });
+    const printPostParamsMiddleware = async (ctx, next) => {
+        if (ctx.method.toUpperCase() === 'POST') {
+            monking.appLogger.info('request body:', ctx.request.body);
+        }
+        await next();
+    };
+    return [loggerMiddleware, printPostParamsMiddleware];
 };

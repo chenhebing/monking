@@ -1,2 +1,3 @@
    get  ==>  /test                           controller: home           
+  post  ==>  /api/test                       controller: home           
 

@@ -8,9 +8,9 @@ export default async monking => {
     const coreMiddlewarePath = path.resolve(__dirname, './middleware');
     const userMiddlewarePath = path.resolve(monking.config.path.middlewares);
     const files = [];
-    const middleWareConfig = ['logger',
+    const middleWareConfig = ['bodyParser', 'logger',
         ...(!monking.config.onlyServer ? ['static'] : []),
-        'bodyParser', 'service', 'aop', 'controller',
+        'service', 'aop', 'controller',
         ...(monking.config.middlewares || []),
         ...(monking.config.env === 'development' ? ['serverHmr'] : []),
         'router'];
