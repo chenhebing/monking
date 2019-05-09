@@ -1,5 +1,6 @@
 import koaLogger from 'koa-logger';
 import log4js from 'log4js';
+import chalk from 'chalk';
 
 export default monking => {
     log4js.configure(monking.config.log4js);
@@ -15,7 +16,8 @@ export default monking => {
     });
     const printPostParamsMiddleware = async (ctx, next) => {
         if (ctx.method.toUpperCase() === 'POST') {
-            monking.appLogger.info('request body:', ctx.request.body);
+            monking.appLogger.info(`  ${chalk.gray('<--')} ${chalk.bold('BODY')}`,
+                chalk.gray(JSON.stringify(ctx.request.body)));
         }
         await next();
     };
